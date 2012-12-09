@@ -1,0 +1,76 @@
+2008.05.21.:
+ - Updated Cairo to v1.6.4
+ - Updated libPixman to 0.10.0
+ - Added new OS/2 specific functions:
+     cairo_os2_surface_set_draw_offset()
+     cairo_os2_surface_get_draw_offset()
+     cairo_os2_surface_set_hps()
+ - Updated forwarder DLLs to forward to new Cairo DLL
+ - Updated FontConfig-emulation code to latest (from Mozilla)
+
+2008.01.18.:
+ - Updated Cairo to v1.4.14
+ - Added forwarder DLLs so apps linked to old Cairo DLLs can use new DLL
+
+2007.09.19.:
+ - Added new OS/2-specific functions to v1.4.6, named it v1.4.7
+
+2007.05.11:
+ - Updated Cairo to v1.4.6
+
+2006.09.26:
+ - Updated Cairo to v1.2.4
+
+2006.08.09:
+ - Updated Cairo to v1.2.2
+ - Added FcPatternDel() as a stub to FontConfig/2
+
+2006.08.02:
+ - API name changes, requested by original Cairo author
+
+2006.07.30:
+ - Replaced the FontConfig+Expat combination with our own small code.
+   This should fix fonts.cache problems.
+
+2006.03.14:
+ - Modified FontConfig so it won't put fonts.cache* files into your home and
+   all of its subfolders, only into PSFONTS folder.
+ - Changed compiler to Innotek GCC. This fixes some crashes with DSSaver
+   modules, however this makes the DLL dependent on LIBC 06 GA release.
+
+2005.12.22:
+ - Implemented dirty_area support. The following Cairo functions will work now:
+   cairo_surface_mark_dirty(), cairo_surface_mark_dirty_rectangle()
+   You can use them to initialize a newly created surface with pixels from the 
+   window (HPS) itself.
+ - Updated comments for the APIs in cairo-os2.h file, they were out of date.
+   
+2005.11.01:
+ - Last change was based on old makefile which broke DLL. Fixed makefile.
+ - INITINSTANCE and TERMINSTANCE was missing from lnk file, so the DLL did
+   not do a cleanup, resulting in huge memory leakage. Fixed.
+ - Added new API: cairo_os2_surface_set_HWND()
+   See cairo-os2.h for details!
+ - Fixed memory leaks in FontConfig.
+
+2005.10.20:
+ - Updated code to Cairo 1.0.2 level
+ - Modified makefile so it now creates DLL file with version in name
+   (e.g.: cairo102.dll)
+ - Added two new OS/2-specific API: 
+   cairo_os2_initialize() and cairo_os2_uninitialize()
+   These are called automatically it Cairo is compiled to be a DLL, but you
+   have to call them once if you link to Cairo statically.
+ - Separated these two functions into new file to ease the static compilation.
+ - Removed libSVG code from DLL as it doesn't really belong to Cairo, and as
+   its development has been stopped.
+
+2005.09.03:
+ - Created changelog
+ - Slightly modified OS2_Patch.c file for the patches to look nicer.
+ - Modified makefile, changed compiler switches.
+   The adding of '-of' was required in order to make FreeType2 library
+   work properly. Without stack frames, the library messes with the
+   stack, and the application crashes (mostly when T1 fonts are used).
+ - Modified makefile, put a new line to linker file to create more
+   verbose map file.
